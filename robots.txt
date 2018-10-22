@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://willyan.co/sitemap.xml
+Host: https://willyan.co
