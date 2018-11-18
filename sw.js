@@ -11,8 +11,8 @@
  * See https://goo.gl/2aRDsh
  */
 
-importScripts("workbox-v3.6.1/workbox-sw.js");
-workbox.setConfig({modulePathPrefix: "workbox-v3.6.1"});
+importScripts("workbox-v3.6.3/workbox-sw.js");
+workbox.setConfig({modulePathPrefix: "workbox-v3.6.3"});
 
 workbox.core.setCacheNameDetails({prefix: "gatsby-plugin-offline"});
 
@@ -26,37 +26,29 @@ workbox.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-8317f3a74aeb55b775d1.js"
+    "url": "webpack-runtime-99b49acd6e39230de998.js"
   },
   {
-    "url": "app-3160c050bc6da41897c6.js"
+    "url": "app-00bc930a2dc9ee93a5c0.js"
   },
   {
-    "url": "component---node-modules-gatsby-plugin-offline-app-shell-js-a5814bd9535675e5b054.js"
-  },
-  {
-    "url": "index.html",
-    "revision": "7c79506383b8cd9e6add696fcd662c64"
+    "url": "component---node-modules-gatsby-plugin-offline-app-shell-js-3a9f699067a435db7a91.js"
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "21cd919a5ec9d6a39cb6aea50f602ceb"
+    "revision": "d793d6831e4773b1324a8cee33494be8"
   },
   {
-    "url": "1-9bafa4ebe8a6f3c13196.js"
+    "url": "component---src-pages-404-js-6b71f2e530bfd595b570.js"
   },
   {
-    "url": "component---src-pages-index-js-bbed0960bb3db017f263.js"
+    "url": "1-063e4fd968f808a25ba4.js"
   },
   {
-    "url": "0-2897cf2398452679f0ae.js"
+    "url": "2-c0f7dd2f018d25a5b3ee.js"
   },
   {
-    "url": "static/d/64/path---index-6a9-kEWB85n2pDgWpTI11FkjBsFsFAs.json",
-    "revision": "2911f1dab9d7d4fffb0bc0bf3803993b"
-  },
-  {
-    "url": "component---src-pages-404-js-fa5fd3b3a2c43e595507.js"
+    "url": "0-869ebc09c53ef10e5497.js"
   },
   {
     "url": "static/d/164/path---404-html-516-62a-NZuapzHg3X9TaN1iIixfv1W23E.json",
@@ -75,29 +67,12 @@ workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 workbox.routing.registerNavigationRoute("/offline-plugin-app-shell-fallback/index.html", {
-  whitelist: [/^[^?]*([^.?]{5}|\.html)(\?.*)?$/],
+  whitelist: [/^([^.?]*|[^?]*\.([^.?]{5,}|html))(\?.*)?$/],
   blacklist: [/\?(.+&)?no-cache=1$/],
 });
 
-workbox.routing.registerRoute(/\.(?:png|jpg|jpeg|webp|svg|gif|tiff|js|woff|woff2|json|css)$/, workbox.strategies.staleWhileRevalidate(), 'GET');
-workbox.routing.registerRoute(/^https:/, workbox.strategies.networkFirst(), 'GET');
+workbox.routing.registerRoute(/(\.js$|\.css$|\/static\/)/, workbox.strategies.cacheFirst(), 'GET');
+workbox.routing.registerRoute(/^https?:.*\.(png|jpg|jpeg|webp|svg|gif|tiff|js|woff|woff2|json|css)$/, workbox.strategies.staleWhileRevalidate(), 'GET');
+workbox.routing.registerRoute(/^https?:\/\/fonts\.googleapis\.com\/css/, workbox.strategies.staleWhileRevalidate(), 'GET');
+// noop
 "use strict";
-
-/* global workbox */
-self.addEventListener("message", function (event) {
-  var api = event.data.api;
-
-  if (api === "gatsby-runtime-cache") {
-    var resources = event.data.resources;
-    var cacheName = workbox.core.cacheNames.runtime;
-    event.waitUntil(caches.open(cacheName).then(function (cache) {
-      return Promise.all(resources.map(function (resource) {
-        return cache.add(resource).catch(function (e) {
-          // ignore TypeErrors - these are usually due to
-          // external resources which don't allow CORS
-          if (!(e instanceof TypeError)) throw e;
-        });
-      }));
-    }));
-  }
-});
